@@ -10,6 +10,7 @@ temp.track()
 describe 'inotify', ->
   it 'should work', (cb) ->
     dirPath = temp.mkdirSync()
+    console.log "temp dir: #{dirPath}"
     ch = chan(1)
 
     w = new inotify()
