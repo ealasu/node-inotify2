@@ -1,6 +1,6 @@
 var fs = require('fs');
 var through2 = require('through2');
-var binding = require('./build/Release/inotify');
+var binding = require('./build/Release/inotify2');
 
 module.exports = INotify;
 module.exports.constants = binding.constants;

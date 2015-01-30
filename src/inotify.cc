@@ -109,4 +109,4 @@ void InitModule(Handle<Object> exports) {
 
 }
 
-NODE_MODULE(inotify2, InitModule)
+NODE_MODULE(inotify2_module, InitModule)

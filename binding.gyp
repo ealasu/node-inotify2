@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      'target_name': 'inotify',
+      'target_name': 'inotify2',
       'include_dirs': ["<!(node -e \"require('nan')\")"],
       'sources': [
         'src/inotify.cc',
