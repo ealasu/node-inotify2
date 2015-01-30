@@ -1,7 +1,6 @@
 var inotify = require('./');
 
-var s = inotify();
-s.addWatch('.');
-s.on('data', function(e) {
+var w = new inotify();
+w.addWatch('.', inotify.constants.IN_ACCESS, function(e) {
   console.dir(e);
 });

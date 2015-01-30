@@ -2,34 +2,35 @@ var fs = require('fs');
 var through2 = require('through2');
 var binding = require('./lib/binding');
 
-module.exports = function() {
-  var fd = binding.init();
-  var watches = {};
-  var readStream = fs.createReadStream(null, {
-    fd: fd
-  });
+module.exports = INotify;
+module.exports.constants = binding.constants;
 
-  var res = readStream.pipe(through2.obj(function(buf, _, cb) {
-    this.push(binding.parseEvent(buf));
+function INotify() {
+  var self = this;
+  this._watches = {};
+  this._fd = binding.init();
+  this._readStream = fs.createReadStream(null, {fd: this._fd});
+  this._readStream.pipe(through2.obj(function(buf, _, cb) {
+    var e = binding.parseEvent(buf);
+    self._watches[e.wd](e);
     cb();
   }));
-
-  res.close = function() {
-    readStream.close();
-  };
-
-  res.addWatch = function(pathname, mask) {
-    if (watches[pathname]) return;
-    var wd = binding.addWatch(fd, pathname, mask);
-    watches[pathname] = wd;
-  };
-
-  res.removeWatch = function(pathname) {
-    var wd = watches[pathname];
-    if (wd == null) return;
-    binding.rmWatch(fd, wd);
-    delete watches[pathname];
-  };
-
-  return res;
 }
+
+INotify.prototype.close = function() {
+  this._readStream.close();
+};
+
+INotify.prototype.addWatch = function(pathname, mask, callback) {
+  if (mask == null) {
+    mask = binding.constants.IN_ALL_EVENTS;
+  }
+  var wd = binding.addWatch(this._fd, pathname, mask);
+  this._watches[wd] = callback;
+  return wd;
+};
+
+INotify.prototype.removeWatch = function(wd) {
+  binding.rmWatch(this._fd, wd);
+  delete this._watches[wd];
+};
