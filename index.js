@@ -12,13 +12,15 @@ function INotify() {
   this._readStream = fs.createReadStream(null, {fd: this._fd});
   this._readStream.pipe(through2.obj(function(buf, _, cb) {
     var e = binding.parseEvent(buf);
-    self._watches[e.wd](e);
+    var wd = e.wd;
+    delete e.wd;
+    self._watches[wd](e);
     cb();
   }));
 }
 
 INotify.prototype.close = function() {
-  this._readStream.close();
+  this._readStream.destroy();
 };
 
 INotify.prototype.addWatch = function(pathname, mask, callback) {
