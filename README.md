@@ -1,4 +1,14 @@
 # inotify2
-[ ![Codeship Status for eman294/node-inotify2](https://codeship.com/projects/e90a2300-8a83-0132-b799-7ea459d53ec7/status?branch=master)](https://codeship.com/projects/60028)
+
+[![NPM info][npm-image]][npm-url]
+[![Build status][ci-image]][ci-url]
+[![Dependencies][dep-image]][dep-url]
 
 inotify wrapper that works with node & iojs.
+
+[npm-image]: https://nodei.co/npm/inotify2.png?downloads=true
+[npm-url]: https://www.npmjs.com/package/inotify2
+[ci-image]: https://api.travis-ci.org/ealasu/node-inotify2.svg?branch=master
+[ci-url]: https://travis-ci.org/ealasu/node-inotify2
+[dep-image]: https://david-dm.org/ealasu/node-inotify2.svg
+[dep-url]: https://david-dm.org/ealasu/node-inotify2
