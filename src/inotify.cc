@@ -50,8 +50,7 @@ NAN_METHOD(RmWatch) {
 NAN_METHOD(ParseEvent) {
   NanScope();
 
-  auto buf = node::Buffer::Data(args[0].As<Object>());
-  auto event = (inotify_event*)buf;
+  auto event = (inotify_event*)node::Buffer::Data(args[0].As<Object>());
   auto res = NanNew<Object>();
 
   res->Set(NanNew<String>("wd"), NanNew<Number>(event->wd));
