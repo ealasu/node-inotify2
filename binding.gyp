@@ -6,6 +6,9 @@
       'sources': [
         'src/inotify.cc',
       ],
+      'cflags_cc!': [
+        '-std=c++11',
+      ],
     }
   ]
 }
