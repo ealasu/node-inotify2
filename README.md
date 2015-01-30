@@ -1,6 +1,7 @@
 # inotify2
 
 [![NPM info][npm-image]][npm-url]
+
 [![Build status][ci-image]][ci-url]
 [![Dependencies][dep-image]][dep-url]
 
