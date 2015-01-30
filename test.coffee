@@ -2,6 +2,7 @@ fs = require 'fs'
 path = require 'path'
 temp = require 'temp'
 {expect} = require 'chai'
+chan = require 'chan'
 inotify = require('./')
 
 temp.track()
@@ -9,22 +10,19 @@ temp.track()
 describe 'inotify', ->
   it 'should work', (cb) ->
     dirPath = temp.mkdirSync()
-    events = []
+    ch = chan(1)
 
     w = new inotify()
-    w.addWatch dirPath, inotify.constants.IN_CLOSE_WRITE, (e) ->
-      events.push e
+    w.addWatch dirPath, inotify.constants.IN_CLOSE_WRITE, (event) ->
+      ch(event)
 
     fs.writeFileSync path.join(dirPath, 'a'), 'hello'
 
-    setTimeout ->
-      expect(events).to.eql [
-        {
-          cookie: 0
-          mask: 8
-          name: 'a'
-        }
-      ]
+    ch (_, event) ->
+      expect(event).to.eql {
+        cookie: 0
+        mask: 8
+        name: 'a'
+      }
       w.close()
       cb()
-    , 10
