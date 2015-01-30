@@ -7,7 +7,7 @@
         'src/inotify.cc',
       ],
       'cflags': [
-        '-std=c++11',
+        '-std=c++0x',
       ],
     }
   ]
