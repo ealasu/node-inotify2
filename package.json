@@ -9,7 +9,7 @@
   "author": "eman",
   "license": "ISC",
   "dependencies": {
-    "nan": "~1.5.3",
+    "nan": "~1.8.4",
     "through2": "^0.6.3"
   },
   "devDependencies": {
